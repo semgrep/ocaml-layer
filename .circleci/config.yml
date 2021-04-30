@@ -5,7 +5,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build-and-push:
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
@@ -24,6 +24,19 @@ jobs:
           name: Push
           command: make push
 
+  build-only:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+
+      # Work around "no docker within no docker".
+      - setup_remote_docker
+
+      - run:
+          name: Build
+          command: make build
+
 #
 # Build and push a docker image for each change on the main branch and
 # weekly.
@@ -41,10 +54,20 @@ workflows:
   version: 2
   build-on-master-push:
     jobs:
-      - build:
+      - build-and-push:
           filters:
             branches:
               only:
+                - master
+                - main
+
+  # Check pull requests
+  build-on-branch-push:
+    jobs:
+      - build-only:
+          filters:
+            branches:
+              ignore:
                 - master
                 - main
 
@@ -61,7 +84,7 @@ workflows:
                 - main
 
     jobs:
-      - build:
+      - build-and-push:
           # Run only on the main branch.
           filters:
             branches:
