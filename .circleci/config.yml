@@ -37,41 +37,14 @@ jobs:
           name: Build
           command: make build
 
-#
-# Build and push a docker image for each change on the main branch and
-# weekly.
-#
-# This occurs after merging a PR or after pushing directly to the main
-# branch. We also build an image every week to keep things fresh since
-# it updates the list of available opam packages and installs the
-# latest version of unpinned packages.
-#
-# Images get tagged with a date like '2021-04-08'. If multiple images
-# get built on the same day, they will overwrite each other, which is
-# fine.
-#
 workflows:
   version: 2
-  build-on-master-push:
-    jobs:
-      - build-and-push:
-          filters:
-            branches:
-              only:
-                - master
-                - main
 
-  # Check pull requests
-  build-on-branch-push:
+  build-on-push:
     jobs:
-      - build-only:
-          filters:
-            branches:
-              ignore:
-                - master
-                - main
+      - build-only
 
-  build-weekly:
+  build-and-push-weekly:
     # Rebuild periodically rather than based on git changes.
     triggers:
       - schedule:
