@@ -28,6 +28,7 @@ extra_packages="$extra_deb_packages"
 # Opam switch to use. This determines the OCaml version and a set of
 # configuration options.
 opam_switch="4.12.0+flambda"
+opam_switch_options="--package=ocaml-variants.4.12.0+options,ocaml-option-flambda"
 
 # The collection of opam packages we want to install. Go wild.
 opam_packages="$opam_packages"
