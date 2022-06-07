@@ -11,7 +11,7 @@
 # The list of destination docker URLs (tags) is saved to a temporary file
 # which will be consulted our 'docker-push' script.
 #
-set -eu
+set -eux
 
 # YYYY-MM-DD date, made available to all the config files, which can
 # use it for tagging the docker images.
