@@ -7,12 +7,17 @@ version: 2.1
 jobs:
   build-and-push:
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: cimg/base:current-22.04
     steps:
       - checkout
 
       # Work around "no docker within no docker".
-      - setup_remote_docker
+      - setup_remote_docker:
+          # Note that the default version (17.09.0-ce)
+          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
+          # causes issues with permissions inside of the nested docker instances.
+          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
+          version: 20.10.14
 
       - run:
           name: Build
@@ -26,12 +31,17 @@ jobs:
 
   build-only:
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: cimg/base:current-22.04
     steps:
       - checkout
 
       # Work around "no docker within no docker".
-      - setup_remote_docker
+      - setup_remote_docker:
+          # Note that the default version (17.09.0-ce)
+          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
+          # causes issues with permissions inside of the nested docker instances.
+          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
+          version: 20.10.14
 
       - run:
           name: Build
