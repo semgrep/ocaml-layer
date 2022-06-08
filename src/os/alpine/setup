@@ -11,9 +11,6 @@ extra_packages=$*
 echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
      >> /etc/apk/repositories
 
-apk update
-apk upgrade
-
 packages="
   bash
   bubblewrap
@@ -38,10 +35,10 @@ packages="
   $extra_packages
 "
 
-apk add $packages
+apk add --no-cache $packages
 
 # no apk package for this one
-pip3 install --ignore-installed pre-commit
+pip3 install --no-cache-dir --ignore-installed pre-commit
 
 if [ -z "$(git config user.email)" ]; then
   git config --global user.email "docker@example.com"
