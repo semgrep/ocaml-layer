@@ -27,7 +27,9 @@ packages="
   opam
   openssl
   patch
+  pcre-dev
   py-pip
+  python3
   rsync
   sudo
   tar
