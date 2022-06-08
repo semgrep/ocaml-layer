@@ -24,7 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate Dockerfile
-        run: src/create-dockerfile > src/Dockerfile
+        run: |
+          source common-config.sh
+          src/create-dockerfile > src/Dockerfile
       - name: Get Docker metadata
         id: meta
         uses: docker/metadata-action@v4.0.1
