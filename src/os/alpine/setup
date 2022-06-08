@@ -37,8 +37,8 @@ packages="
 
 apk add --no-cache $packages
 
-# no apk package for this one
-pip3 install --no-cache-dir --ignore-installed pre-commit
+# no apk package for these
+pip3 install --no-cache-dir --ignore-installed pre-commit pipenv
 
 if [ -z "$(git config user.email)" ]; then
   git config --global user.email "docker@example.com"
