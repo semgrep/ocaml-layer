@@ -48,7 +48,7 @@ opam_packages="
   ounit2
   pcre
   parmap
-  ppxlib.0.22.0
+  ppxlib
   ppx_deriving
   ppx_hash
   ppx_sexp_conv

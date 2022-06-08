@@ -3,7 +3,7 @@
 # Create a non-privileged user on a Debian-based OS.
 # From https://github.com/mjambon/setup-ocaml
 #
-set -eu
+set -eux
 
 error() {
   echo "Error: $*" >&2
