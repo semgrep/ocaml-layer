@@ -3,7 +3,7 @@
 # Create a non-privileged user on Alpine.
 # From https://github.com/mjambon/setup-ocaml
 #
-set -eux
+set -eu
 
 error() {
   echo "Error: $*" >&2

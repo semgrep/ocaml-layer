@@ -3,7 +3,7 @@
 # General system setup for Alpine Linux prior to installing Opam.
 # From https://github.com/mjambon/setup-ocaml
 #
-set -eux
+set -eu
 
 # The command line arguments are a list of extra packages to install.
 extra_packages=$*

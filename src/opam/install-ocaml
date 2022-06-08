@@ -3,7 +3,7 @@
 # Install opam, ocaml compilers and standard library.
 # From https://github.com/mjambon/setup-ocaml
 #
-set -eux
+set -eu
 
 mkdir -p .ssh
 chmod 700 .ssh
@@ -13,8 +13,8 @@ if [ -z "$(git config user.email)" ]; then
   git config --global user.name "Docker"
 fi
 
-opam init --disable-sandboxing -v
-opam switch create "$@" -v
+opam init --disable-sandboxing
+opam switch create "$@"
 
 cat >> ~/.bashrc <<"EOF"
 # From https://github.com/mjambon/ocaml-layer

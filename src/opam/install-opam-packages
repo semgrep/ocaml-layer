@@ -3,7 +3,7 @@
 # Install opam packages specified on the command line.
 # From https://github.com/mjambon/setup-ocaml
 #
-set -eux
+set -eu
 
 packages=$(echo $* | sed -e 's/,/ /g')
 opam install -y $packages

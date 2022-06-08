@@ -12,7 +12,7 @@ os="ubuntu"
 
 # The argument of the FROM line in the dockerfile. This is the docker
 # URL of the base image, optionally followed by more things.
-from="ubuntu"
+from="ubuntu:21.10"
 
 # This is the argument of 'docker pull', 'docker push', etc. for the image
 # we are building.
@@ -27,7 +27,7 @@ extra_packages="$extra_deb_packages"
 
 # Opam switch to use. This determines the OCaml version and a set of
 # configuration options.
-opam_switch="4.14.0"
+opam_switch="4.12.0"
 
 # The collection of opam packages we want to install. Go wild.
 opam_packages="$opam_packages"

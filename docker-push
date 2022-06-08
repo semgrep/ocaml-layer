@@ -9,7 +9,7 @@
 # Usage: ./docker-push
 #
 #
-set -eux
+set -eu
 
 for docker_url in $(cat pushme); do
   echo "Pushing '$docker_url'."
