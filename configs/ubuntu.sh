@@ -20,6 +20,8 @@ docker_url="returntocorp/ocaml:ubuntu"
 extra_docker_urls=("$docker_url-$date")
 
 # User to create and use. If it already exists, we'll try to use it.
+#
+# See justification for using 'root' in 'alpine.sh'.
 user="root"
 
 # Extra packages to be installed by the native package manager.
