@@ -20,7 +20,10 @@ docker_url="returntocorp/ocaml:alpine"
 extra_docker_urls=("$docker_url-$date")
 
 # User to create and use. If it already exists, we'll try to use it.
-user="user"
+#
+# We now use 'root' at r2c to avoid permission complications in GitHub
+# Actions. This is a widespread practice for other languages (Rust, Go, ...)
+user="root"
 
 # Extra packages to be installed by the native package manager.
 extra_packages="$extra_apk_packages"
