@@ -1,3 +1,4 @@
-### Security
+PR checklist:
 
-- [ ] Change has security implications (if so, ping the security team)
+- [ ] PR comment includes a reproducible test plan
+- [ ] Change has no security implications (otherwise ping the security team)
