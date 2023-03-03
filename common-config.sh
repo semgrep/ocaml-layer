@@ -2,10 +2,11 @@
 
 # Extra packages to be installed by the native package manager.
 #
-# tree-sitter needs pkg-config, npm/node, python (for node-gyp).
+# tree-sitter needs pkg-config, npm/node/cargo, python (for node-gyp).
 
-# Alpine
+# Alpine (in alphabetic orders)
 extra_apk_packages="
+  cargo
   nodejs
   npm
   pcre-dev
@@ -14,6 +15,7 @@ extra_apk_packages="
 
 # Ubuntu
 extra_deb_packages="
+  cargo
   libpcre3-dev
   nodejs
   npm
@@ -27,17 +29,27 @@ opam_packages="
   ansiterminal
   atdgen
   atdpy
+  base
   bloomf
   cmdliner
+  cohttp-lwt-unix
   comby-kernel.1.4.1
   conf-pkg-config
+  ctypes_stubs_js
   dune
   dune-glob
   easy_logging.0.8.1
   easy_logging_yojson.0.8.1
+  feather
+  fpath
   grain_dypgen
+  integers_stubs_js
   junit_alcotest
-  lsp.1.3.0
+  js_of_ocaml
+  js_of_ocaml-compiler
+  js_of_ocaml-ppx
+  logs
+  lsp.1.7.0
   merlin
   menhir.20211128
   num
@@ -50,9 +62,11 @@ opam_packages="
   parmap
   ppxlib
   ppx_deriving
+  ppx_deriving_cmdliner
   ppx_hash
   ppx_sexp_conv
   re
+  stdcompat
   sexplib
   tsort
   utop
