@@ -3,10 +3,12 @@
 # Extra packages to be installed by the native package manager.
 #
 # tree-sitter needs pkg-config, npm/node/cargo, python (for node-gyp).
+# cohttp-lwt-unix needs gmp
 
 # Alpine (in alphabetic orders)
 extra_apk_packages="
   cargo
+  gmp-dev
   nodejs
   npm
   pcre-dev
@@ -16,6 +18,7 @@ extra_apk_packages="
 # Ubuntu
 extra_deb_packages="
   cargo
+  libgmp-dev
   libpcre3-dev
   nodejs
   npm
