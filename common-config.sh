@@ -48,9 +48,9 @@ opam_packages="
   grain_dypgen
   integers_stubs_js
   junit_alcotest
-  js_of_ocaml
-  js_of_ocaml-compiler
-  js_of_ocaml-ppx
+  js_of_ocaml.5.1.1
+  js_of_ocaml-compiler.5.1.1
+  js_of_ocaml-ppx.5.1.1
   logs
   lsp.1.7.0
   merlin
