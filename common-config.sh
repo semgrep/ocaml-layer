@@ -36,7 +36,6 @@ opam_packages="
   bloomf
   cmdliner
   cohttp-lwt-unix
-  comby-kernel.1.4.1
   conf-pkg-config
   ctypes_stubs_js
   dune
