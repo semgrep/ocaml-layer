@@ -67,7 +67,7 @@ opam_packages="
   ppx_deriving
   ppx_deriving_cmdliner
   ppx_hash
-  ppx_sexp_conv
+  ppx_sexp_conv.v0.14.3
   re
   stdcompat
   sexplib
