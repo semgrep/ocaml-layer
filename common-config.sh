@@ -35,7 +35,6 @@ opam_packages="
   base
   bloomf
   cmdliner
-  cohttp-lwt-unix
   conf-pkg-config
   ctypes_stubs_js
   dune
@@ -45,6 +44,7 @@ opam_packages="
   feather
   fpath
   grain_dypgen
+  http-lwt-client
   integers_stubs_js
   junit_alcotest
   js_of_ocaml.5.1.1
