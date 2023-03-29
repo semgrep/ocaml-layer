@@ -71,6 +71,7 @@ opam_packages="
   stdcompat
   sexplib
   tsort
+  uri
   utop
   uucp
   uutf
