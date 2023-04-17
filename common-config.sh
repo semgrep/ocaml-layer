@@ -70,6 +70,7 @@ opam_packages="
   re
   stdcompat
   sexplib
+  terminal_size
   tsort
   uri
   utop
