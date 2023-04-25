@@ -5,20 +5,12 @@
 version: 2.1
 
 jobs:
-  build-and-push:
-    docker:
-      - image: cimg/base:current-22.04
+  build-and-push-amd64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: medium
     steps:
       - checkout
-
-      # Work around "no docker within no docker".
-      - setup_remote_docker:
-          # Note that the default version (17.09.0-ce)
-          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
-          # causes issues with permissions inside of the nested docker instances.
-          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
-          version: 20.10.14
-
       - run:
           name: Build
           command: make build
@@ -29,20 +21,38 @@ jobs:
           name: Push
           command: make push
 
-  build-only:
-    docker:
-      - image: cimg/base:current-22.04
+  build-and-push-arm64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: arm.medium
     steps:
       - checkout
+      - run:
+          name: Build
+          command: make build
+      - run:
+          name: Login
+          command: ./.circleci/docker-login
+      - run:
+          name: Push
+          command: make push
 
-      # Work around "no docker within no docker".
-      - setup_remote_docker:
-          # Note that the default version (17.09.0-ce)
-          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
-          # causes issues with permissions inside of the nested docker instances.
-          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
-          version: 20.10.14
+  build-only-amd64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: make build
 
+  build-only-arm64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: arm.medium
+    steps:
+      - checkout
       - run:
           name: Build
           command: make build
@@ -52,11 +62,17 @@ workflows:
 
   build-on-pr:
     jobs:
-      - build-only
+      - build-only-amd64
+      - build-only-arm64
 
   build-and-push-on-master-push:
     jobs:
-      - build-and-push:
+      - build-and-push-amd64:
+          filters:
+            branches:
+              only:
+                - master
+      - build-and-push-arm64:
           filters:
             branches:
               only:
@@ -75,7 +91,14 @@ workflows:
                 - main
 
     jobs:
-      - build-and-push:
+      - build-and-push-amd64:
+          # Run only on these branches (each pushing different images)
+          filters:
+            branches:
+              only:
+                - master
+                - main
+      - build-and-push-arm64:
           # Run only on these branches (each pushing different images)
           filters:
             branches:

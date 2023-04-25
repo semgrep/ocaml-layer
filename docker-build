@@ -76,6 +76,7 @@ build() {
         --opam-packages "$opam_packages" \
         --opam-switch "$opam_switch" \
         --opam-switch-options "$opam_switch_options"
+
       docker build -t "$docker_url" "${extra_build_options[@]}" .
 
       # Sanity check.
