@@ -5,20 +5,21 @@
 version: 2.1
 
 executors:
-  linux/amd64:
+  amd64:
     machine:
       image: ubuntu-2204:2022.07.1
     resource_class: medium
-  linux/arm64:
+  arm64:
     machine:
       image: ubuntu-2204:2022.07.1
     resource_class: arm.medium
 
 jobs:
   build-and-push:
-    machine:
-      image: ubuntu-2204:2022.07.1
-    resource_class: medium
+    parameters:
+      architecture:
+        type: executor
+    executor: << parameters.architecture >>
     steps:
       - checkout
       - run:
@@ -33,9 +34,9 @@ jobs:
 
   build-only:
     parameters:
-      platform:
+      architecture:
         type: executor
-    executor: << parameters.platform >>
+    executor: << parameters.architecture >>
     steps:
       - checkout
       - run:
@@ -50,14 +51,14 @@ workflows:
       - build-only:
           matrix:
             parameters:
-              platform: [linux/amd64, linux/arm64]
+              architecture: [amd64, arm64]
 
   build-and-push-on-master-push:
     jobs:
       - build-and-push:
           matrix:
             parameters:
-              platform: [linux/amd64, linux/arm64]
+              architecture: [amd64, arm64]
           filters:
             branches:
               only:
@@ -79,7 +80,7 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              platform: [linux/amd64, linux/arm64]
+              architecture: [amd64, arm64]
           # Run only on these branches (each pushing different images)
           filters:
             branches:
