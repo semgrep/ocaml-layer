@@ -4,8 +4,18 @@
 
 version: 2.1
 
+executors:
+  linux/amd64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: medium
+  linux/arm64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: arm.medium
+
 jobs:
-  build-and-push-amd64:
+  build-and-push:
     machine:
       image: ubuntu-2204:2022.07.1
     resource_class: medium
@@ -21,36 +31,11 @@ jobs:
           name: Push
           command: make push
 
-  build-and-push-arm64:
-    machine:
-      image: ubuntu-2204:2022.07.1
-    resource_class: arm.medium
-    steps:
-      - checkout
-      - run:
-          name: Build
-          command: make build
-      - run:
-          name: Login
-          command: ./.circleci/docker-login
-      - run:
-          name: Push
-          command: make push
-
-  build-only-amd64:
-    machine:
-      image: ubuntu-2204:2022.07.1
-    resource_class: medium
-    steps:
-      - checkout
-      - run:
-          name: Build
-          command: make build
-
-  build-only-arm64:
-    machine:
-      image: ubuntu-2204:2022.07.1
-    resource_class: arm.medium
+  build-only:
+    parameters:
+      platform:
+        type: executor
+    executor: << parameters.platform >>
     steps:
       - checkout
       - run:
@@ -62,17 +47,17 @@ workflows:
 
   build-on-pr:
     jobs:
-      - build-only-amd64
-      - build-only-arm64
+      - build-only:
+          matrix:
+            parameters:
+              platform: [linux/amd64, linux/arm64]
 
   build-and-push-on-master-push:
     jobs:
-      - build-and-push-amd64:
-          filters:
-            branches:
-              only:
-                - master
-      - build-and-push-arm64:
+      - build-and-push:
+          matrix:
+            parameters:
+              platform: [linux/amd64, linux/arm64]
           filters:
             branches:
               only:
@@ -91,14 +76,10 @@ workflows:
                 - main
 
     jobs:
-      - build-and-push-amd64:
-          # Run only on these branches (each pushing different images)
-          filters:
-            branches:
-              only:
-                - master
-                - main
-      - build-and-push-arm64:
+      - build-and-push:
+          matrix:
+            parameters:
+              platform: [linux/amd64, linux/arm64]
           # Run only on these branches (each pushing different images)
           filters:
             branches:
