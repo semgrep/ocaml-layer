@@ -42,6 +42,7 @@ opam_packages="
   easy_logging.0.8.1
   easy_logging_yojson.0.8.1
   feather
+  fmt
   fpath
   grain_dypgen
   http-lwt-client
@@ -51,7 +52,9 @@ opam_packages="
   js_of_ocaml-compiler.5.1.1
   js_of_ocaml-ppx.5.1.1
   logs
-  lsp.1.7.0
+  lsp.1.15.1-5.0
+  lwt
+  lwt_ppx
   merlin
   menhir.20211128
   num
@@ -66,6 +69,7 @@ opam_packages="
   ppx_deriving
   ppx_deriving_cmdliner
   ppx_hash
+  ppx_inline_test
   ppx_sexp_conv.v0.14.3
   re
   stdcompat
@@ -75,6 +79,7 @@ opam_packages="
   uri
   utop
   uucp
+  uuidm
   uutf
   yaml
   yojson
