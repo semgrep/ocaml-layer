@@ -4,21 +4,24 @@
 
 version: 2.1
 
+executors:
+  amd64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: medium
+  arm64:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    resource_class: arm.medium
+
 jobs:
   build-and-push:
-    docker:
-      - image: cimg/base:current-22.04
+    parameters:
+      architecture:
+        type: executor
+    executor: << parameters.architecture >>
     steps:
       - checkout
-
-      # Work around "no docker within no docker".
-      - setup_remote_docker:
-          # Note that the default version (17.09.0-ce)
-          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
-          # causes issues with permissions inside of the nested docker instances.
-          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
-          version: 20.10.14
-
       - run:
           name: Build
           command: make build
@@ -30,19 +33,12 @@ jobs:
           command: make push
 
   build-only:
-    docker:
-      - image: cimg/base:current-22.04
+    parameters:
+      architecture:
+        type: executor
+    executor: << parameters.architecture >>
     steps:
       - checkout
-
-      # Work around "no docker within no docker".
-      - setup_remote_docker:
-          # Note that the default version (17.09.0-ce)
-          # (see <https://circleci.com/docs/2.0/building-docker-images/#docker-version>)
-          # causes issues with permissions inside of the nested docker instances.
-          # See e.g., <https://github.com/docker-library/php/issues/1192#issuecomment-902366923>
-          version: 20.10.14
-
       - run:
           name: Build
           command: make build
@@ -52,11 +48,17 @@ workflows:
 
   build-on-pr:
     jobs:
-      - build-only
+      - build-only:
+          matrix:
+            parameters:
+              architecture: [amd64, arm64]
 
   build-and-push-on-master-push:
     jobs:
       - build-and-push:
+          matrix:
+            parameters:
+              architecture: [amd64, arm64]
           filters:
             branches:
               only:
@@ -76,6 +78,9 @@ workflows:
 
     jobs:
       - build-and-push:
+          matrix:
+            parameters:
+              architecture: [amd64, arm64]
           # Run only on these branches (each pushing different images)
           filters:
             branches:
