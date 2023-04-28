@@ -22,22 +22,21 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: Load images
+          name: Create and push multi-arch manifest
           command: |
             for archive in /tmp/workspace/images-*.tar; do
               echo "Loading ${archive}..."
               docker load -i $archive
             done
-      - run:
-          name: Create and push multi-arch manifest
-          command: |
-            images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
-            for image in $images; do
+
+            for image in $(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq); do
               repo=$(echo $image | cut -d: -f1)
               manifest_args=()
               for digest in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
+                docker inspect $repo@$digest
                 manifest_args+=( --amend "${repo}@${digest}" )
               done
+              echo "Run: docker manifest create $image ${manifest_args[@]}"
               docker manifest create $image ${manifest_args[@]}
             done
 
