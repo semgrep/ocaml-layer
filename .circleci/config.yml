@@ -25,17 +25,18 @@ jobs:
           name: Load images
           command: |
             for filename in /tmp/workspace/image-*.tar; do
+              echo "Loading ${filename}..."
               docker load -i $filename
             done
       - run:
           name: Create and push multi-arch manifest
           command: |
             for image in $(cat pushme); do
+              echo $image
               manifest_args=()
-              for digest_json in /tmp/workspace/image-*.json; do
-                for digest in $(jq -r "map(select(.RepoTags | contains([\"$image\"])) | .Id) | unique | .[]" < $digest_json); do
-                  manifest_args+=( --amend $digest )
-                done
+              for digest in $(grep $image /tmp/workspace/digests-* | cut -f2); do
+                echo " -> ${digest}"
+                manifest_args+=( --amend $digest )
               done
               docker manifest create $image $manifest_args
             done
@@ -53,14 +54,18 @@ jobs:
       - run:
           name: Save images
           command: |
-            docker image inspect > images-<< parameters.architecture >>.json
+            digests="digests-<< parameters.architecture >>"
+            rm -f $digests
+            for image in $(cat pushme); do
+              echo "${image}\t$(docker image inspect -f '{{ .Id }}' ${image})" >> $digests
+            done
             docker save -o images-<< parameters.architecture >>.tar $(cat pushme)
       - persist_to_workspace:
           root: .
           paths:
             - images-<< parameters.architecture >>.tar
+            - digests-<< parameters.architecture >>
             - pushme
-            - images-<< parameters.architecture >>.json
 
   build-only:
     parameters:
