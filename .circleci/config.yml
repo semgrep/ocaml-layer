@@ -36,9 +36,9 @@ jobs:
             echo "---"
             images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
             for image in $images; do
-              echo $image
+              echo "Handling $image"
               manifest_args=()
-              for digest in $(grep "$image\t" /tmp/workspace/digests-* | cut -f2); do
+              for digest in $(grep "${image}\t" /tmp/workspace/digests-* | cut -f2); do
                 echo " -> ${digest}"
                 manifest_args+=( --amend $digest )
               done
