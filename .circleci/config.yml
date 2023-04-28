@@ -35,11 +35,12 @@ jobs:
             for image in $images; do
               echo " -> $image"
               manifest_args=()
-              for digest in $(cat /tmp/workspace/digests-* | grep "${image}"$'\t' | cut -f2); do
+              for digest in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
                 echo "    -> $digest"
                 manifest_args+=( --amend $digest )
               done
-              docker manifest create $image $manifest_args
+              echo "manifest args = $manifest_args"
+              docker manifest create $image $manifest_args[@]
             done
 
   build-and-save:
