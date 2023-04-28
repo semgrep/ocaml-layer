@@ -61,9 +61,10 @@ jobs:
             rm -f $digests
             images_to_save=()
             for image in $(cat pushme); do
+              docker tag $image $image-$arch
               digest=$(docker image inspect -f '{{ .Id }}' ${image})
               echo -e "${image}\t${digest}" >> $digests
-              images_to_save+=( "${image}@${digest}" )
+              images_to_save+=( "${image}-${arch}" )
             done
             docker save -o images-$arch.tar $images_to_save
       - persist_to_workspace:
