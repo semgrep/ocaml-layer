@@ -31,7 +31,9 @@ jobs:
       - run:
           name: Create and push multi-arch manifest
           command: |
-            for image in $(cat pushme); do
+            images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
+            echo "images: $images"
+            for image in $images; do
               echo $image
               manifest_args=()
               for digest in $(grep $image /tmp/workspace/digests-* | cut -f2); do
@@ -66,7 +68,6 @@ jobs:
           paths:
             - images-*.tar
             - digests-*
-            - pushme
 
   build-only:
     parameters:
