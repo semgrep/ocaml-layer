@@ -59,10 +59,13 @@ jobs:
             arch=$(docker info -f '{{ .Architecture }}')
             digests="digests-${arch}"
             rm -f $digests
+            images_to_save=()
             for image in $(cat pushme); do
-              echo -e "${image}\t$(docker image inspect -f '{{ .Id }}' ${image})" >> $digests
+              digest=$(docker image inspect -f '{{ .Id }}' ${image})
+              echo -e "${image}\t${digest}" >> $digests
+              images_to_save+=( "${image}@${digest}" )
             done
-            docker save -o images-$arch.tar $(cat pushme)
+            docker save -o images-$arch.tar $images_to_save
       - persist_to_workspace:
           root: .
           paths:
