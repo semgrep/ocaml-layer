@@ -24,6 +24,7 @@ jobs:
       - run:
           name: Load images
           command: |
+            ls /tmp/workspace/image-*.tar
             for archive in $(ls /tmp/workspace/image-*.tar); do
               echo "Loading ${archive}..."
               docker load -i $archive
@@ -31,24 +32,13 @@ jobs:
       - run:
           name: Create and push multi-arch manifest
           command: |
-            echo "digests:"
-            cat /tmp/workspace/digests-*
-            echo "---"
             images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
             for image in $images; do
-              echo "Handling '$image'"
               manifest_args=()
-              echo "All digests:"
-              cat /tmp/workspace/digests-*
-              echo "Grepped for ${image}"
-              cat /tmp/workspace/digests-* | grep "${image}"$'\t'
-              echo "---"
               for digest in $(cat /tmp/workspace/digests-* | grep "${image}"$'\t' | cut -f2); do
-                echo " -> ${digest}"
                 manifest_args+=( --amend $digest )
               done
-              echo "docker manifest create $image $manifest_args"
-              #docker manifest create $image $manifest_args
+              docker manifest create $image $manifest_args
             done
 
   build-and-save:
