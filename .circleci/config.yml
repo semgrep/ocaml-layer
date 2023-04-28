@@ -8,11 +8,11 @@ executors:
   amd64:
     machine:
       image: ubuntu-2204:2022.07.1
-    resource_class: xlarge
+    resource_class: medium
   arm64:
     machine:
       image: ubuntu-2204:2022.07.1
-    resource_class: arm.xlarge
+    resource_class: arm.medium
 
 jobs:
   push-multi-arch:
