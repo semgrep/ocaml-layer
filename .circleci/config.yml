@@ -38,6 +38,11 @@ jobs:
             for image in $images; do
               echo "Handling '$image'"
               manifest_args=()
+              echo "All digests:"
+              cat /tmp/workspace/digests-*
+              echo "Grepped for ${image}"
+              cat /tmp/workspace/digests-* | grep "${image}\t"
+              echo "---"
               for digest in $(cat /tmp/workspace/digests-* | grep "${image}\t" | cut -f2); do
                 echo " -> ${digest}"
                 manifest_args+=( --amend $digest )
