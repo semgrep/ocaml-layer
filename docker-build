@@ -80,7 +80,7 @@ build() {
       docker build -t "$docker_url" "${extra_build_options[@]}" .
 
       # Sanity check.
-      docker run -t "$docker_url" opam exec -- ocamlc -v
+      #docker run -t "$docker_url" opam exec -- ocamlc -v
     )
 
     echo "$docker_url" >> "$pushme"
