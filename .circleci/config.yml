@@ -15,6 +15,23 @@ executors:
     resource_class: arm.medium
 
 jobs:
+  push-multi-arch:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Login
+          command: ./.circleci/docker-login
+      - run:
+          name: Create multi-arch images
+          command: make create-multi-arch
+      - run:
+          name: Push
+          command: make push
+
   build-and-push:
     parameters:
       architecture:
@@ -25,6 +42,13 @@ jobs:
       - run:
           name: Build
           command: make build
+      - run:
+          name: Tag images with arch
+          command: make tag-with-arch
+      - persist_to_workspace:
+          root: .
+          paths:
+            - images-*
       - run:
           name: Login
           command: ./.circleci/docker-login
@@ -58,7 +82,13 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64]  # TODO: re-introduce arm64 once we've figured out how to correctly publish a multi-arch docker image
+              architecture: [amd64, arm64]
+          filters:
+            branches:
+              only:
+                - master
+      - push-multi-arch:
+          requires: [build-and-push]
           filters:
             branches:
               only:
@@ -80,7 +110,15 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64]  # TODO: re-introduce arm64 once we've figured out how to correctly publish a multi-arch docker image
+              architecture: [amd64, arm64]
+          # Run only on these branches (each pushing different images)
+          filters:
+            branches:
+              only:
+                - master
+                - main
+      - push-multi-arch:
+          requires: [build-and-push]
           # Run only on these branches (each pushing different images)
           filters:
             branches:
