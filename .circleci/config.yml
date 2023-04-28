@@ -41,9 +41,9 @@ jobs:
               echo "All digests:"
               cat /tmp/workspace/digests-*
               echo "Grepped for ${image}"
-              cat /tmp/workspace/digests-* | grep "${image}"
+              cat /tmp/workspace/digests-* | grep "${image}"$'\t'
               echo "---"
-              for digest in $(cat /tmp/workspace/digests-* | grep "${image}" | cut -f2); do
+              for digest in $(cat /tmp/workspace/digests-* | grep "${image}"$'\t' | cut -f2); do
                 echo " -> ${digest}"
                 manifest_args+=( --amend $digest )
               done
