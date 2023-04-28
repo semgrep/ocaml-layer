@@ -39,8 +39,8 @@ jobs:
                 echo "    -> $digest"
                 manifest_args+=( --amend "$digest" )
               done
-              echo "manifest args = $manifest_args"
-              docker manifest create $image $manifest_args[@]
+              echo "manifest args = ${manifest_args[@]}"
+              docker manifest create $image ${manifest_args[@]}
             done
 
   build-and-save:
