@@ -54,17 +54,17 @@ jobs:
       - run:
           name: Save images
           command: |
-            digests="digests-<< parameters.architecture >>"
+            digests="digests-<< pipeline.parameters.architecture >>"
             rm -f $digests
             for image in $(cat pushme); do
               echo "${image}\t$(docker image inspect -f '{{ .Id }}' ${image})" >> $digests
             done
-            docker save -o images-<< parameters.architecture >>.tar $(cat pushme)
+            docker save -o images-<< pipeline.parameters.architecture >>.tar $(cat pushme)
       - persist_to_workspace:
           root: .
           paths:
-            - images-<< parameters.architecture >>.tar
-            - digests-<< parameters.architecture >>
+            - images-<< pipeline.parameters.architecture >>.tar
+            - digests-<< pipeline.parameters.architecture >>
             - pushme
 
   build-only:
