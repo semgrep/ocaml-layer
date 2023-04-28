@@ -37,7 +37,7 @@ jobs:
               manifest_args=()
               for digest in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
                 echo "    -> $digest"
-                manifest_args+=( --amend $digest )
+                manifest_args+=( --amend "$digest" )
               done
               echo "manifest args = $manifest_args"
               docker manifest create $image $manifest_args[@]
