@@ -24,8 +24,7 @@ jobs:
       - run:
           name: Load images
           command: |
-            ls /tmp/workspace/image-*.tar
-            for archive in $(ls /tmp/workspace/image-*.tar); do
+            for archive in /tmp/workspace/images-*.tar; do
               echo "Loading ${archive}..."
               docker load -i $archive
             done
