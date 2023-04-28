@@ -33,13 +33,11 @@ jobs:
           command: |
             images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
             for image in $images; do
-              echo " -> $image"
+              repo=$(echo $image | cut -d: -f1)
               manifest_args=()
               for digest in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
-                echo "    -> $digest"
-                manifest_args+=( --amend "${image}@${digest}" )
+                manifest_args+=( --amend "${repo}@${digest}" )
               done
-              echo "manifest args = ${manifest_args[@]}"
               docker manifest create $image ${manifest_args[@]}
             done
 
@@ -59,14 +57,11 @@ jobs:
             arch=$(docker info -f '{{ .Architecture }}')
             digests="digests-${arch}"
             rm -f $digests
-            images_to_save=()
             for image in $(cat pushme); do
-              docker tag $image $image-$arch
-              digest=$(docker image inspect -f '{{ .Id }}' ${image})
+              digest=$(docker image inspect -f '{{ .Id }}' $image)
               echo -e "${image}\t${digest}" >> $digests
-              images_to_save+=( "${image}-${arch}" )
             done
-            docker save -o images-$arch.tar $images_to_save
+            docker save -o images-$arch.tar $(cat pushme)
       - persist_to_workspace:
           root: .
           paths:
