@@ -33,8 +33,10 @@ jobs:
           command: |
             images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
             for image in $images; do
+              echo " -> $image"
               manifest_args=()
               for digest in $(cat /tmp/workspace/digests-* | grep "${image}"$'\t' | cut -f2); do
+                echo "    -> $digest"
                 manifest_args+=( --amend $digest )
               done
               docker manifest create $image $manifest_args
