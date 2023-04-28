@@ -60,7 +60,7 @@ jobs:
             digests="digests-${arch}"
             rm -f $digests
             for image in $(cat pushme); do
-              echo "${image}\t$(docker image inspect -f '{{ .Id }}' ${image})" >> $digests
+              echo "${image}  $(docker image inspect -f '{{ .Id }}' ${image})" >> $digests
             done
             docker save -o images-$arch.tar $(cat pushme)
       - persist_to_workspace:
