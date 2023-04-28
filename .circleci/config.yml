@@ -29,14 +29,11 @@ jobs:
               docker load -i $archive
             done
 
-            docker image ls
-
             for image in $(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq); do
               repo=$(echo $image | cut -d: -f1)
               manifest_args=()
-              for image_arch in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
-                docker image inspect $image_arch
-                manifest_args+=( --amend "$image_arch" )
+              for digest in $(cat /tmp/workspace/digests-* | grep ${image}$'\t' | cut -f2); do
+                manifest_args+=( --amend "$repo@$digest" )
               done
               echo "Run: docker manifest create $image ${manifest_args[@]}"
               docker manifest create $image ${manifest_args[@]}
@@ -63,7 +60,7 @@ jobs:
               image_arch="${image}-${arch}"
               docker tag $image $image_arch
               digest=$(docker image inspect -f '{{ .Id }}' $image)
-              echo -e "${image}\t${image_arch}" >> $digests
+              echo -e "${image}\t${digest}" >> $digests
               images_to_save+=( $image_arch )
             done
             docker save -o images-$arch.tar $images_to_save
