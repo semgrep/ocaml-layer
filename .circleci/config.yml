@@ -15,7 +15,32 @@ executors:
     resource_class: arm.medium
 
 jobs:
-  build-and-push:
+  push-multi-arch:
+    machine:
+      image: ubuntu-2204:2022.07.1
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load images
+          command: |
+            for filename in /tmp/workspace/image-*.tar; do
+              docker load -i $filename
+            done
+      - run:
+          name: Create and push multi-arch manifest
+          command: |
+            for image in $(cat pushme); do
+              manifest_args=()
+              for digest_json in /tmp/workspace/image-*.json; do
+                for digest in $(jq -r "map(select(.RepoTags | contains([\"$image\"])) | .Id) | unique | .[]" < $digest_json); do
+                  manifest_args+=( --amend $digest )
+                done
+              done
+              docker manifest create $image $manifest_args
+            done
+
+  build-and-save:
     parameters:
       architecture:
         type: executor
@@ -26,11 +51,16 @@ jobs:
           name: Build
           command: make build
       - run:
-          name: Login
-          command: ./.circleci/docker-login
-      - run:
-          name: Push
-          command: make push
+          name: Save images
+          command: |
+            docker image inspect > images-<< parameters.architecture >>.json
+            docker save -o images-<< parameters.architecture >>.tar $(cat pushme)
+      - persist_to_workspace:
+          root: .
+          paths:
+            - images-<< parameters.architecture >>.tar
+            - pushme
+            - images-<< parameters.architecture >>.json
 
   build-only:
     parameters:
@@ -48,10 +78,12 @@ workflows:
 
   build-on-pr:
     jobs:
-      - build-only:
+      - build-and-save:
           matrix:
             parameters:
               architecture: [amd64, arm64]
+      - push-multi-arch:
+          requires: [build-and-save]
 
   build-and-push-on-master-push:
     jobs:
