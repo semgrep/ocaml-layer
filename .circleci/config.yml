@@ -58,7 +58,7 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64, arm64]
+              architecture: [amd64]  # TODO: re-introduce arm64 once we've figured out how to correctly publish a multi-arch docker image
           filters:
             branches:
               only:
@@ -80,7 +80,7 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64, arm64]
+              architecture: [amd64]  # TODO: re-introduce arm64 once we've figured out how to correctly publish a multi-arch docker image
           # Run only on these branches (each pushing different images)
           filters:
             branches:
