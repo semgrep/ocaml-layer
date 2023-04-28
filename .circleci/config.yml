@@ -60,7 +60,7 @@ jobs:
             rm -f $digests
             images_to_save=()
             for image in $(cat pushme); do
-              $image_arch="${image}-${arch}"
+              image_arch="${image}-${arch}"
               docker tag $image $image_arch
               digest=$(docker image inspect -f '{{ .Id }}' $image)
               echo -e "${image}\t${image_arch}" >> $digests
