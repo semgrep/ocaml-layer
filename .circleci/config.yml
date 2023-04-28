@@ -44,7 +44,7 @@ jobs:
           command: make build
       - run:
           name: Tag images with arch
-          command: make tag-with-arch
+          command: make suffix-with-arch
       - persist_to_workspace:
           root: .
           paths:

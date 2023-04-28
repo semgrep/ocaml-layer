@@ -25,12 +25,12 @@ push:
 
 # Tag docker images with the current architecture. (optional: needed for multi-arch images)
 .PHONY: suffix-with-arch
-tag-with-arch:
+suffix-with-arch:
 	./docker-suffix-with-arch
 
 # Create a multi-arch docker image from multiple arch-specific images.
 .PHONY: create-multi-arch
-push-multi-arch:
+create-multi-arch:
 	./docker-create-multi-arch
 
 # Build and push.
