@@ -51,14 +51,14 @@ workflows:
       - build-only:
           matrix:
             parameters:
-              architecture: [amd64, arm64]
+              architecture: [amd64]
 
   build-and-push-on-master-push:
     jobs:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64, arm64]
+              architecture: [amd64]
           filters:
             branches:
               only:
@@ -80,7 +80,7 @@ workflows:
       - build-and-push:
           matrix:
             parameters:
-              architecture: [amd64, arm64]
+              architecture: [amd64]
           # Run only on these branches (each pushing different images)
           filters:
             branches:
