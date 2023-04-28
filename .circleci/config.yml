@@ -31,6 +31,9 @@ jobs:
       - run:
           name: Create and push multi-arch manifest
           command: |
+            echo "digests:"
+            cat /tmp/workspace/digests-*
+            echo "---"
             images=$(cat /tmp/workspace/digests-* | cut -f1 | sort | uniq)
             for image in $images; do
               echo $image
