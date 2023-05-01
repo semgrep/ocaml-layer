@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+#
+# Disambiguates images for a multi-arch build by suffixing their tag with the current architecture.
+#
+set -eux
+
+arch=$(docker info -f "{{ .Architecture }}")
+image_mapping="images-${arch}"
+rm -f "$image_mapping"
+
+# create a new tag suffixed with the current architecture for each image in pushme
+# write the before/after image names to a file so that we can group them for the multi-arch manifest later
+for image in $(cat pushme); do
+    arch_image="${image}-${arch}"
+    docker tag "$image" "$arch_image"
+    echo -e "${image}\t${arch_image}" >> "$image_mapping"
+done
+
+# update pushme to point to the new tags
+cat "$image_mapping" | cut -f2 > pushme

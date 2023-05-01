@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+#
+# Create multi-arch image manifests based on arch-specific images
+#
+set -eux
+
+rm -f pushme
+
+# get set of unique images
+images=$(cat images-* | cut -f 1 | sort | uniq)
+
+# create a multi-arch manifest based on the arch-specific images we find
+for image in $images; do
+    manifest_args=()
+    for image_arch in $(cat images-* | grep "${image}"$'\t' | cut -f2); do
+        manifest_args+=( --amend "$image_arch" )
+    done
+    docker manifest create "$image" "${manifest_args[@]}"
+    echo "$image" >> pushme
+done
