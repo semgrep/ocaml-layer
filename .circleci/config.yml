@@ -26,11 +26,8 @@ jobs:
           name: Login
           command: ./.circleci/docker-login
       - run:
-          name: Create multi-arch images
-          command: make create-multi-arch
-      - run:
-          name: Push
-          command: make push
+          name: Create and push a multi-arch image manifest
+          command: make push-multi-arch
 
   build-and-push:
     parameters:

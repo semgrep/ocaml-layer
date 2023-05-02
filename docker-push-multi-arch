@@ -18,3 +18,9 @@ for image in $images; do
     docker manifest create "$image" "${manifest_args[@]}"
     echo "$image" >> pushme
 done
+
+# push multi-arch manifests
+for image in $images; do
+  echo "Pushing image manifest '$image'."
+  docker manifest push "$image"
+done

@@ -28,10 +28,10 @@ push:
 suffix-with-arch:
 	./docker-suffix-with-arch
 
-# Create a multi-arch docker image from multiple arch-specific images.
-.PHONY: create-multi-arch
-create-multi-arch:
-	./docker-create-multi-arch
+# Create and push a multi-arch docker image from multiple arch-specific images
+.PHONY: push-multi-arch
+push-multi-arch:
+	./docker-push-multi-arch
 
 # Build and push.
 .PHONY: all
