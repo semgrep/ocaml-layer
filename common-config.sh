@@ -70,6 +70,7 @@ opam_packages="
   ppx_deriving_cmdliner
   ppx_hash
   ppx_inline_test
+  ppx_expect
   ppx_sexp_conv.v0.14.3
   re
   stdcompat
