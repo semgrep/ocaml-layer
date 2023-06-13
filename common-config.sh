@@ -34,13 +34,16 @@ opam_packages="
   atdpy
   base
   bloomf
+  bos
   cmdliner
   conf-pkg-config
   ctypes_stubs_js
+  digestif
   dune
   dune-glob
   easy_logging.0.8.1
   easy_logging_yojson.0.8.1
+  emile
   feather
   fmt
   fpath
@@ -58,10 +61,12 @@ opam_packages="
   merlin
   menhir.20211128
   num
+  notty
   ocamlfind
   ocamlformat.0.21.0
   ocamlgraph
   ocp-indent
+  odoc
   ounit2
   pcre
   parmap
