@@ -48,6 +48,7 @@ opam_packages="
   fmt
   fpath
   grain_dypgen
+  'happy-eyeballs>=0.6.0'
   http-lwt-client
   integers_stubs_js
   junit_alcotest
