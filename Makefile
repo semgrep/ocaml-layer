@@ -10,7 +10,8 @@ ifndef SELECTED_CONFIGS
   SELECTED_CONFIGS = \
     configs/alpine.sh \
     configs/ubuntu.sh \
-		configs/alpine5.0.sh
+		configs/alpine5.0.sh \
+		configs/ubuntu5.0.sh
 endif
 export SELECTED_CONFIGS
 
