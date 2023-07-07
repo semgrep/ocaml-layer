@@ -7,6 +7,7 @@
 
 # Alpine (in alphabetic orders)
 extra_apk_packages="
+  autoconf
   cargo
   gmp-dev
   nodejs
@@ -17,6 +18,7 @@ extra_apk_packages="
 
 # Ubuntu
 extra_deb_packages="
+  autoconf
   cargo
   libgmp-dev
   libpcre3-dev
@@ -37,6 +39,7 @@ opam_packages="
   bos
   cmdliner
   conf-pkg-config
+  conf-autoconf
   ctypes_stubs_js
   digestif
   dune
@@ -52,19 +55,19 @@ opam_packages="
   http-lwt-client
   integers_stubs_js
   junit_alcotest
-  js_of_ocaml.5.1.1
-  js_of_ocaml-compiler.5.1.1
-  js_of_ocaml-ppx.5.1.1
+  js_of_ocaml
+  js_of_ocaml-compiler
+  js_of_ocaml-ppx
   logs
   lsp.1.15.1-5.0
   lwt
   lwt_ppx
   merlin
-  menhir.20211128
+  menhir.20220210
   num
   notty
   ocamlfind
-  ocamlformat.0.21.0
+  ocamlformat.0.23.0
   ocamlgraph
   ocp-indent
   odoc
@@ -77,7 +80,6 @@ opam_packages="
   ppx_hash
   ppx_inline_test
   ppx_expect
-  ppx_sexp_conv.v0.14.3
   re
   stdcompat
   sexplib
