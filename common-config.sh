@@ -38,6 +38,7 @@ opam_packages="
   bloomf
   bos
   cmdliner
+  cohttp-lwt-unix
   conf-pkg-config
   conf-autoconf
   ctypes_stubs_js
@@ -84,6 +85,7 @@ opam_packages="
   stdcompat
   sexplib
   terminal_size
+  tls-lwt
   tsort
   uri
   utop
