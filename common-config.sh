@@ -85,6 +85,7 @@ opam_packages="
   stdcompat
   sexplib
   terminal_size
+  timedesc
   tls-lwt
   tsort
   uri
