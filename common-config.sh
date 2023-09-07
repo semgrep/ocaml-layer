@@ -38,7 +38,7 @@ opam_packages="
   bloomf
   bos
   cmdliner
-  cohttp-lwt-unix
+  'cohttp-lwt-unix>=5.3.0'
   conf-pkg-config
   conf-autoconf
   ctypes_stubs_js
@@ -52,8 +52,6 @@ opam_packages="
   fmt
   fpath
   grain_dypgen
-  'happy-eyeballs>=0.6.0'
-  http-lwt-client
   integers_stubs_js
   junit_alcotest
   js_of_ocaml
@@ -63,6 +61,7 @@ opam_packages="
   lsp.1.15.1-5.0
   lwt
   lwt_ppx
+  'lwt_ssl>=1.2.0'
   merlin
   menhir.20220210
   num
@@ -86,7 +85,6 @@ opam_packages="
   sexplib
   terminal_size
   timedesc
-  tls-lwt
   tsort
   uri
   utop
