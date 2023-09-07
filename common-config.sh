@@ -12,6 +12,7 @@ extra_apk_packages="
   gmp-dev
   nodejs
   npm
+  openssl
   pcre-dev
   python3
 "
