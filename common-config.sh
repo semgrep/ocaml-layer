@@ -14,6 +14,7 @@ extra_apk_packages="
   npm
   openssl
   pcre-dev
+  pkg-config
   python3
 "
 
@@ -23,6 +24,7 @@ extra_deb_packages="
   cargo
   libgmp-dev
   libpcre3-dev
+  libssl-dev
   nodejs
   npm
   pkg-config
