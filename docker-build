@@ -59,6 +59,7 @@ build() {
     cp -a src/os/"$os" tmp/os
     cp -a src/opam tmp
     cp -a src/create-dockerfile tmp
+    cp -a src/finalize tmp
 
     extra_build_options=()
     for url in "${extra_docker_urls[@]}"; do
