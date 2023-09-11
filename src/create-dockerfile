@@ -236,7 +236,7 @@ RUN $(multiline ./.ocaml-setup/opam/install-opam-packages $opam_packages)
 $([[ "$no_cmd" = true ]] || (echo; echo "CMD $cmd") )
 
 # Some final steps to run before we finish.
-RUN $(multiline ./finalize)
+RUN $(multiline ./.ocaml-setup/finalize)
 
 COPY Dockerfile /Dockerfile
 EOF
