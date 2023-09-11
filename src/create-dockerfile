@@ -224,10 +224,6 @@ RUN echo "$force_tag"
 
 COPY os/$os/setup .ocaml-setup/os/setup
 
-COPY ./finalize .ocaml-setup/finalize
-# Some steps to run.
-RUN $(multiline ./.ocaml-setup/finalize)
-
 RUN $(multiline ./.ocaml-setup/os/setup $extra_packages)
 
 $(print_create_user)
@@ -237,6 +233,10 @@ RUN ./.ocaml-setup/opam/install-ocaml '$opam_switch' $opam_switch_options
 COPY opam/install-opam-packages .ocaml-setup/opam/install-opam-packages
 RUN $(multiline ./.ocaml-setup/opam/install-opam-packages $opam_packages)
 $([[ "$no_cmd" = true ]] || (echo; echo "CMD $cmd") )
+
+COPY ./finalize .ocaml-setup/finalize
+# Some steps to run at the end.
+RUN bash ./.ocaml-setup/finalize
 
 COPY Dockerfile /Dockerfile
 EOF
