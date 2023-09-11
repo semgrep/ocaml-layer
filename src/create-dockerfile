@@ -223,7 +223,10 @@ $([[ "$no_from" = true ]] || echo "FROM $from")
 RUN echo "$force_tag"
 
 COPY os/$os/setup .ocaml-setup/os/setup
+
 COPY ./finalize .ocaml-setup/finalize
+# Some steps to run.
+RUN $(multiline ./.ocaml-setup/finalize)
 
 RUN $(multiline ./.ocaml-setup/os/setup $extra_packages)
 
@@ -234,9 +237,6 @@ RUN ./.ocaml-setup/opam/install-ocaml '$opam_switch' $opam_switch_options
 COPY opam/install-opam-packages .ocaml-setup/opam/install-opam-packages
 RUN $(multiline ./.ocaml-setup/opam/install-opam-packages $opam_packages)
 $([[ "$no_cmd" = true ]] || (echo; echo "CMD $cmd") )
-
-# Some final steps to run before we finish.
-RUN $(multiline ./.ocaml-setup/finalize)
 
 COPY Dockerfile /Dockerfile
 EOF
