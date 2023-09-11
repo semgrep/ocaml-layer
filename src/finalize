@@ -1,0 +1,9 @@
+#! /bin/sh
+#
+# Final steps to run before finishing installation.
+#
+
+# Install the latest long-term support version of npm. In particular, this is
+# needed for builds on tree-sitter grammars that use newer Javascript features.
+npm install -g n
+n lts
