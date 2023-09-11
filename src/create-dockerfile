@@ -223,6 +223,7 @@ $([[ "$no_from" = true ]] || echo "FROM $from")
 RUN echo "$force_tag"
 
 COPY os/$os/setup .ocaml-setup/os/setup
+COPY ./finalize .ocaml-setup/finalize
 
 RUN $(multiline ./.ocaml-setup/os/setup $extra_packages)
 
