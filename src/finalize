@@ -5,5 +5,6 @@
 
 # Install the latest long-term support version of npm. In particular, this is
 # needed for builds on tree-sitter grammars that use newer Javascript features.
+# We do it here because we prefer to catch the problem as upstream as possible.
 npm install -g n
 n lts
