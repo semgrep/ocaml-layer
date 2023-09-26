@@ -82,7 +82,6 @@ opam_packages="
   ppx_inline_test
   ppx_expect
   re
-  stdcompat
   sexplib
   terminal_size
   timedesc
