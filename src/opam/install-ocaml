@@ -16,6 +16,9 @@ fi
 opam init --disable-sandboxing -v
 opam switch create "$@" -v
 
+# update opam to have the latest packages before installing
+opam update
+
 cat >> ~/.bashrc <<"EOF"
 # From https://github.com/mjambon/ocaml-layer
 echo 'Running "eval $(opam env)", which initializes PATH and other variables.'
