@@ -68,10 +68,10 @@ opam_packages="
   num
   notty
   ocamlfind
-  ocamlformat.0.23.0
+  ocamlformat.0.26.1
   ocamlgraph
   ocp-indent
-  odoc.2.3.0
+  odoc
   ounit2
   pcre
   parmap
