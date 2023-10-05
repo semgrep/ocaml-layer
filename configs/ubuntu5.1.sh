@@ -8,30 +8,28 @@
 
 # The OS family. Determines which collection of install scripts to use.
 # Currently, choices are 'alpine' or 'ubuntu'.
-os="alpine"
+os="ubuntu"
 
 # The argument of the FROM line in the dockerfile. This is the docker
 # URL of the base image, optionally followed by more things.
-from="alpine:3.12.0"
+from="ubuntu"
 
 # This is the argument of 'docker pull', 'docker push', etc. for the image
 # we are building.
-docker_url="returntocorp/ocaml:alpine5.0"
+docker_url="returntocorp/ocaml:ubuntu5.1"
 extra_docker_urls=("$docker_url-$date")
 
 # User to create and use. If it already exists, we'll try to use it.
 #
-# We now use 'root' at r2c to avoid permission complications in GitHub
-# Actions. This is a widespread practice for other languages (Rust, Go, ...)
+# See justification for using 'root' in 'alpine.sh'.
 user="root"
 
 # Extra packages to be installed by the native package manager.
-extra_packages="$extra_apk_packages"
+extra_packages="$extra_deb_packages"
 
 # Opam switch to use. This determines the OCaml version and a set of
 # configuration options.
-
-opam_switch="5.0.0"
+opam_switch="5.1.0"
 
 # The collection of opam packages we want to install. Go wild.
 opam_packages="$opam_packages"
