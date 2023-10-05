@@ -77,7 +77,6 @@ opam_packages="
   parmap
   ppxlib
   ppx_deriving
-  ppx_deriving_cmdliner
   ppx_hash
   ppx_inline_test
   ppx_expect
