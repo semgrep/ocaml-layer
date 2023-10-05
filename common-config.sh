@@ -56,19 +56,19 @@ opam_packages="
   http-lwt-client
   integers_stubs_js
   junit_alcotest
-  js_of_ocaml
-  js_of_ocaml-compiler
-  js_of_ocaml-ppx
+  js_of_ocaml.5.4.0
+  js_of_ocaml-compiler.5.4.0
+  js_of_ocaml-ppx.5.4.0
   logs
   lsp.1.15.1-5.0
   lwt
   lwt_ppx
   merlin
-  menhir.20220210
+  menhir.20230608
   num
   notty
   ocamlfind
-  ocamlformat.0.23.0
+  ocamlformat.0.26.1
   ocamlgraph
   ocp-indent
   odoc
@@ -77,7 +77,6 @@ opam_packages="
   parmap
   ppxlib
   ppx_deriving
-  ppx_deriving_cmdliner
   ppx_hash
   ppx_inline_test
   ppx_expect
