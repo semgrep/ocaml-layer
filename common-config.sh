@@ -56,9 +56,9 @@ opam_packages="
   http-lwt-client
   integers_stubs_js
   junit_alcotest
-  js_of_ocaml
-  js_of_ocaml-compiler
-  js_of_ocaml-ppx
+  js_of_ocaml.5.4.0
+  js_of_ocaml-compiler.5.4.0
+  js_of_ocaml-ppx.5.4.0
   logs
   lsp.1.15.1-5.0
   lwt
