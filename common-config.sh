@@ -71,7 +71,7 @@ opam_packages="
   ocamlformat.0.23.0
   ocamlgraph
   ocp-indent
-  odoc
+  odoc.2.3.0
   ounit2
   pcre
   parmap
