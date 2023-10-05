@@ -64,7 +64,7 @@ opam_packages="
   lwt
   lwt_ppx
   merlin
-  menhir.20220210
+  menhir.20230608
   num
   notty
   ocamlfind
