@@ -31,6 +31,7 @@ extra_deb_packages="
 # The collection of opam packages we want to install. Go wild.
 opam_packages="
   alcotest
+  alcotest-js
   ansiterminal
   atdgen
   atdpy
@@ -70,6 +71,7 @@ opam_packages="
   ocamlfind
   ocamlformat.0.26.1
   ocamlgraph
+  ocolor
   ocp-indent
   odoc
   ounit2
@@ -81,6 +83,7 @@ opam_packages="
   ppx_inline_test
   ppx_expect
   re
+  semver
   sexplib
   terminal_size
   timedesc
