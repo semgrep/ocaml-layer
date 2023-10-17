@@ -40,6 +40,7 @@ opam_packages="
   bos
   cmdliner
   cohttp-lwt-unix
+  cohttp-lwt-jsoo
   conf-pkg-config
   conf-autoconf
   ctypes_stubs_js
@@ -50,6 +51,7 @@ opam_packages="
   easy_logging_yojson.0.8.1
   emile
   feather
+  fileutils
   fmt
   fpath
   grain_dypgen
