@@ -20,7 +20,7 @@ opam switch create "$@" -v
 opam update
 
 cat >> ~/.bashrc <<"EOF"
-# From https://github.com/mjambon/ocaml-layer
+# From https://github.com/semgrep/ocaml-layer
 echo 'Running "eval $(opam env)", which initializes PATH and other variables.'
 echo
 echo 'In scripts and dockerfiles, don't forget to run your commands as
