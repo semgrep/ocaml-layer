@@ -13,7 +13,7 @@ os="alpine"
 # The argument of the FROM line in the dockerfile. This is the docker
 # URL of the base image, optionally followed by more things.
 # Only pin to minor version, not patch to ensure rebuilds pull in security fixes
-from="alpine:3.15"
+from="alpine:3.18"
 
 # This is the argument of 'docker pull', 'docker push', etc. for the image
 # we are building.
