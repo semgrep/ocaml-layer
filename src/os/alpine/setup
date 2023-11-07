@@ -35,7 +35,8 @@ packages="
   $extra_packages
 "
 
-apk add --no-cache $packages
+# can't have --no-cache here because https://github.com/ocaml/opam/issues/5186
+apk add $packages
 
 # no apk package for these
 pip3 install --no-cache-dir --ignore-installed pre-commit pipenv
