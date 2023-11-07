@@ -73,6 +73,10 @@ workflows:
           matrix:
             parameters:
               architecture: [amd64, arm64]
+          filters:
+            branches:
+              ignore:
+                - master
 
   build-and-push-on-master-push:
     jobs:
@@ -101,7 +105,6 @@ workflows:
             branches:
               only:
                 - master
-                - main
 
     jobs:
       - build-and-push:
@@ -113,7 +116,6 @@ workflows:
             branches:
               only:
                 - master
-                - main
       - push-multi-arch:
           requires: [build-and-push]
           # Run only on these branches (each pushing different images)
@@ -121,4 +123,3 @@ workflows:
             branches:
               only:
                 - master
-                - main
