@@ -17,7 +17,7 @@ from="alpine:3.18"
 
 # This is the argument of 'docker pull', 'docker push', etc. for the image
 # we are building.
-docker_url="returntocorp/ocaml:alpine5.1"
+docker_url="returntocorp/ocaml:alpine5.2"
 extra_docker_urls=("$docker_url-$date")
 
 # User to create and use. If it already exists, we'll try to use it.
@@ -32,7 +32,7 @@ extra_packages="$extra_apk_packages"
 # Opam switch to use. This determines the OCaml version and a set of
 # configuration options.
 
-opam_switch="5.1.0"
+opam_switch="5.2.0~rc1"
 
 # The collection of opam packages we want to install. Go wild.
 opam_packages="$opam_packages"

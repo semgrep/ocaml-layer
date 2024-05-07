@@ -59,9 +59,9 @@ opam_packages="
   http-lwt-client
   integers_stubs_js
   junit_alcotest
-  js_of_ocaml.5.4.0
-  js_of_ocaml-compiler.5.4.0
-  js_of_ocaml-ppx.5.4.0
+  js_of_ocaml.5.7.2
+  js_of_ocaml-compiler.5.7.2
+  js_of_ocaml-ppx.5.7.2
   logs
   lsp.1.15.1-5.0
   lwt
@@ -71,7 +71,7 @@ opam_packages="
   num
   notty
   ocamlfind
-  ocamlformat.0.26.1
+  ocamlformat.0.26.2
   ocamlgraph
   ocolor
   ocp-indent
